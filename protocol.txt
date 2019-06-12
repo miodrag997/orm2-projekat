@@ -1,0 +1,28 @@
+app_protocol.txt
+
+:Author: pavle
+:Email: pavle.portic@tilda.center
+:Date: 2018-06-03 00:50
+:License: MIT
+
+Header
+|-16bits	Sequence number
+|-8bits		Flags
+|-8bits		Checksum
+
+,-----------------------------------------------------------------------------------------------,
+|           0           |           1           |           2           |           3           |
+|-----------------------------------------------|-----------------------------------------------|
+|00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|
+|-----------------------------------------------|-----------------------------------------------|
+|                                               | A| C| I|  |  |  |  |  |                       |
+|                Sequence number                | C| S| N|  |  |  |  |  |        Checksum       |
+|                                               | K| E| T|  |  |  |  |  |                       |
+`-----------------------------------------------------------------------------------------------'
+
+1. The client sends init packet with the INT flag set to 1
+2. The server responds with the total lenght of the file in the body (no checksum required)
+3. The client sends an ACK=1 response to begin the transmission
+4. Every data packet should have a sequence number and correct checksum for the body of the packet
+5. The client responds with an ACK=1 and sequence number for every successfully received packet or ACK=0 for an error
+
